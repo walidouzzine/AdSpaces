@@ -6,6 +6,7 @@ import { db } from '../services/firebase';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Plus } from 'lucide-react';
 import AdSpaceForm from '../components/adspace/AdSpaceForm';
+import AdSpaceModal from '../components/adspace/AdSpaceModal';
 import { useToast } from '../hooks/useToast';
 
 export default function MyBoard() {
@@ -13,7 +14,7 @@ export default function MyBoard() {
   const { t } = useLanguage();
   const [adSpaces, setAdSpaces] = useState<AdSpace[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -72,7 +73,7 @@ export default function MyBoard() {
       console.log('Ad space created with ID:', docRef.id);
       
       toast.success(t('common', 'adSpaceCreated'));
-      setIsFormOpen(false);
+      setIsModalOpen(false);
       fetchAdSpaces();
     } catch (error) {
       console.error('Error creating ad space:', error);
@@ -97,7 +98,7 @@ export default function MyBoard() {
           {t('common', 'myAdSpaces')}
         </h1>
         <button
-          onClick={() => setIsFormOpen(true)}
+          onClick={() => setIsModalOpen(true)}
           className="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200"
         >
           <Plus className="w-5 h-5 mr-2" />
@@ -152,13 +153,13 @@ export default function MyBoard() {
         </div>
       )}
 
-      {isFormOpen && (
-        <AdSpaceForm
-          onSubmit={handleSubmit}
-          onClose={() => setIsFormOpen(false)}
-          isLoading={isSubmitting}
-        />
-      )}
+      <AdSpaceModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={t('common', 'addAdSpace')}
+      >
+        <AdSpaceForm onSubmit={handleSubmit} isLoading={isSubmitting} />
+      </AdSpaceModal>
     </div>
   );
 }

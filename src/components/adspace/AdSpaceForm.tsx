@@ -65,244 +65,203 @@ export default function AdSpaceForm({ onSubmit, onClose, initialData, isLoading 
     },
   });
 
-  const onSubmitForm = (data: AdSpaceFormData) => {
-    // Ensure all required fields are present
-    const formattedData = {
-      ...data,
-      type: data.type || 'billboard',
-      features: data.features || [],
-      availability: data.availability || [],
-      price: {
-        amount: Number(data.price.amount) || 0,
-        currency: data.price.currency || 'USD',
-        period: data.price.period || 'week',
-      },
-      dimensions: {
-        width: Number(data.dimensions.width) || 0,
-        height: Number(data.dimensions.height) || 0,
-        unit: data.dimensions.unit || 'ft',
-      },
-      location: {
-        address: data.location.address || '',
-        lat: Number(data.location.lat) || 0,
-        lng: Number(data.location.lng) || 0,
-      },
-    };
-    onSubmit(formattedData);
-  };
-
   return (
-    <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-8 animate-in slide-up duration-500">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Basic Information */}
-      <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-        <div className="col-span-full">
-          <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.title.label')}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-900">{t('adSpaceForm', 'basicInformation')}</h3>
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+            {t('adSpaceForm', 'titleField')}
           </label>
-          <div className="mt-2">
+          <input
+            type="text"
+            id="title"
+            {...register('title', { required: true })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          {errors.title && (
+            <p className="mt-1 text-sm text-red-600">{t('common', 'fieldRequired')}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+            {t('adSpaceForm', 'description')}
+          </label>
+          <textarea
+            id="description"
+            rows={3}
+            {...register('description', { required: true })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+          {errors.description && (
+            <p className="mt-1 text-sm text-red-600">{t('common', 'fieldRequired')}</p>
+          )}
+        </div>
+
+        <div>
+          <label htmlFor="type" className="block text-sm font-medium text-gray-700">
+            {t('adSpaceForm', 'type')}
+          </label>
+          <select
+            id="type"
+            {...register('type', { required: true })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          >
+            <option value="billboard">{t('adSpaceForm', 'types.billboard')}</option>
+            <option value="digital">{t('adSpaceForm', 'types.digital')}</option>
+            <option value="transit">{t('adSpaceForm', 'types.transit')}</option>
+            <option value="street">{t('adSpaceForm', 'types.street')}</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Location */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-900">{t('adSpaceForm', 'location')}</h3>
+        <div>
+          <label htmlFor="location.address" className="block text-sm font-medium text-gray-700">
+            {t('adSpaceForm', 'address')}
+          </label>
+          <input
+            type="text"
+            id="location.address"
+            {...register('location.address', { required: true })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="location.lat" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'latitude')}
+            </label>
             <input
-              type="text"
-              id="title"
-              {...register('title', { required: true })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
+              type="number"
+              step="any"
+              id="location.lat"
+              {...register('location.lat', { required: true })}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="location.lng" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'longitude')}
+            </label>
+            <input
+              type="number"
+              step="any"
+              id="location.lng"
+              {...register('location.lng', { required: true })}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
         </div>
+      </div>
 
-        <div className="col-span-full">
-          <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.description.label')}
-          </label>
-          <div className="mt-2">
-            <textarea
-              id="description"
-              rows={3}
-              {...register('description')}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out [resize:vertical]"
+      {/* Dimensions */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-900">{t('adSpaceForm', 'dimensions')}</h3>
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <label htmlFor="dimensions.width" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'width')}
+            </label>
+            <input
+              type="number"
+              id="dimensions.width"
+              {...register('dimensions.width', { required: true, min: 0 })}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
-        </div>
-
-        <div className="sm:col-span-1">
-          <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.type.label')}
-          </label>
-          <div className="mt-2">
+          <div>
+            <label htmlFor="dimensions.height" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'height')}
+            </label>
+            <input
+              type="number"
+              id="dimensions.height"
+              {...register('dimensions.height', { required: true, min: 0 })}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="dimensions.unit" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'unit')}
+            </label>
             <select
-              id="type"
-              {...register('type', { required: true })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
+              id="dimensions.unit"
+              {...register('dimensions.unit')}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
-              <option value="digital">{t('adspace', 'types.digital')}</option>
-              <option value="transit">{t('adspace', 'types.transit')}</option>
-              <option value="billboard">{t('adspace', 'types.billboard')}</option>
-              <option value="street">{t('adspace', 'types.street')}</option>
+              <option value="ft">ft</option>
+              <option value="m">m</option>
             </select>
           </div>
         </div>
       </div>
 
-      {/* Location */}
-      <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-        <div className="col-span-full">
-          <label htmlFor="location.address" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.address.label')}
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              id="location.address"
-              {...register('location.address', { required: true })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
+      {/* Price */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-medium text-gray-900">{t('adSpaceForm', 'price')}</h3>
+        <div className="grid grid-cols-3 gap-4">
           <div>
-            <label htmlFor="location.lat" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-              {t('adspace', 'form.latitude.label')}
+            <label htmlFor="price.amount" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'amount')}
             </label>
-            <div className="mt-2">
-              <input
-                type="number"
-                step="any"
-                id="location.lat"
-                {...register('location.lat', { required: true })}
-                className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
-              />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="location.lng" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-              {t('adspace', 'form.longitude.label')}
-            </label>
-            <div className="mt-2">
-              <input
-                type="number"
-                step="any"
-                id="location.lng"
-                {...register('location.lng', { required: true })}
-                className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Pricing */}
-      <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-        <div className="sm:col-span-1">
-          <label htmlFor="price.amount" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.amount.label')}
-          </label>
-          <div className="mt-2">
             <input
               type="number"
               id="price.amount"
               {...register('price.amount', { required: true, min: 0 })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
-        </div>
-
-        <div className="sm:col-span-1">
-          <label htmlFor="price.currency" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.currency.label')}
-          </label>
-          <div className="mt-2">
+          <div>
+            <label htmlFor="price.currency" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'currency')}
+            </label>
             <select
               id="price.currency"
-              {...register('price.currency', { required: true })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
+              {...register('price.currency')}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
               <option value="GBP">GBP</option>
             </select>
           </div>
-        </div>
-
-        <div className="sm:col-span-1">
-          <label htmlFor="price.period" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.period.label')}
-          </label>
-          <div className="mt-2">
+          <div>
+            <label htmlFor="price.period" className="block text-sm font-medium text-gray-700">
+              {t('adSpaceForm', 'period')}
+            </label>
             <select
               id="price.period"
-              {...register('price.period', { required: true })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
+              {...register('price.period')}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
-              <option value="day">{t('adspace', 'periods.day')}</option>
-              <option value="week">{t('adspace', 'periods.week')}</option>
-              <option value="month">{t('adspace', 'periods.month')}</option>
+              <option value="day">{t('adSpaceForm', 'periods.day')}</option>
+              <option value="week">{t('adSpaceForm', 'periods.week')}</option>
+              <option value="month">{t('adSpaceForm', 'periods.month')}</option>
             </select>
           </div>
         </div>
       </div>
 
-      {/* Dimensions */}
-      <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
-        <div className="sm:col-span-1">
-          <label htmlFor="dimensions.width" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.width.label')}
-          </label>
-          <div className="mt-2">
-            <input
-              type="number"
-              id="dimensions.width"
-              {...register('dimensions.width', { required: true, min: 0 })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
-            />
-          </div>
-        </div>
-
-        <div className="sm:col-span-1">
-          <label htmlFor="dimensions.height" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.height.label')}
-          </label>
-          <div className="mt-2">
-            <input
-              type="number"
-              id="dimensions.height"
-              {...register('dimensions.height', { required: true, min: 0 })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
-            />
-          </div>
-        </div>
-
-        <div className="sm:col-span-1">
-          <label htmlFor="dimensions.unit" className="block text-sm font-medium leading-6 text-gray-900 dark:text-gray-100">
-            {t('adspace', 'form.unit.label')}
-          </label>
-          <div className="mt-2">
-            <select
-              id="dimensions.unit"
-              {...register('dimensions.unit', { required: true })}
-              className="block w-full rounded-lg border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500 transition duration-200 ease-out"
-            >
-              <option value="ft">{t('adspace', 'units.ft')}</option>
-              <option value="m">{t('adspace', 'units.m')}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      {/* Submit Button */}
+      {/* Form Actions */}
       <div className="flex justify-end gap-3">
         <button
           type="button"
           onClick={onClose}
-          className="rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 active:bg-gray-100 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700 dark:active:bg-gray-600 transition duration-200 ease-out"
+          className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          {t('common', 'actions.cancel')}
+          {t('adSpaceForm', 'close')}
         </button>
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 active:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition duration-200 ease-out"
+          disabled={isLoading || isSubmitting}
+          className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? t('common', 'actions.submitting') : t('common', 'actions.submit')}
+          {isLoading || isSubmitting ? t('common', 'saving') : t('adSpaceForm', 'submit')}
         </button>
       </div>
     </form>

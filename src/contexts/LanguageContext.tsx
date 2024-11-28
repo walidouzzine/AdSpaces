@@ -12,7 +12,7 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>('fr');
 
   useEffect(() => {
@@ -31,8 +31,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const keys = key.split('.');
     let value = translations[language][section] as any;
     
+    if (!value) return key;
+    
     for (const k of keys) {
-      if (value === undefined) return key;
+      if (!value || typeof value !== 'object') return key;
       value = value[k];
     }
     
@@ -44,12 +46,13 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       {children}
     </LanguageContext.Provider>
   );
-}
+};
 
-export function useLanguage() {
+// Export the hook as a named constant
+export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (context === undefined) {
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;
-}
+};

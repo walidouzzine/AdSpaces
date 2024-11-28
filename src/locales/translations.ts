@@ -26,6 +26,19 @@ export const translations = {
       errorFetchingAdSpaces: 'Erreur lors de la récupération des espaces publicitaires',
       errorCreatingAdSpace: 'Erreur lors de la création de l\'espace publicitaire',
       adSpaceCreated: 'Espace publicitaire créé avec succès',
+      error: 'Erreur',
+      success: 'Succès',
+      delete: 'Supprimer',
+      edit: 'Modifier',
+      status: 'Statut',
+      available: 'Disponible',
+      booked: 'Réservé',
+      unavailable: 'Indisponible',
+      role: {
+        client: 'Client',
+        owner: 'Propriétaire',
+        admin: 'Administrateur'
+      }
     },
     nav: {
       spaces: 'Espaces',
@@ -123,34 +136,68 @@ export const translations = {
         status: 'Statut',
         active: 'Actif',
       },
-    },
-    adspace: {
-      form: {
-        title: 'Ajouter un Nouvel Espace Publicitaire',
-        basicInformation: 'Informations de Base',
-        title: 'Titre',
-        description: 'Description',
-        type: 'Type',
-        location: 'Emplacement',
-        address: 'Adresse',
-        latitude: 'Latitude',
-        longitude: 'Longitude',
-        price: 'Prix',
-        amount: 'Montant',
-        currency: 'Devise',
-        period: 'Période',
-        dimensions: 'Dimensions',
-        width: 'Largeur',
-        height: 'Hauteur',
-        unit: 'Unité',
-        features: 'Caractéristiques',
-        availability: 'Disponibilité',
-        startDate: 'Date de Début',
-        endDate: 'Date de Fin',
-        submit: 'Créer l\'Espace Publicitaire',
-        close: 'Fermer'
+      metrics: {
+        views: 'Vues',
+        clicks: 'Clics',
+        bookings: 'Réservations'
       }
     },
+    adSpaceForm: {
+      title: 'Ajouter un Nouvel Espace Publicitaire',
+      basicInformation: 'Informations de Base',
+      titleField: 'Titre',
+      description: 'Description',
+      type: 'Type',
+      types: {
+        billboard: 'Panneau d\'affichage',
+        digital: 'Numérique',
+        transit: 'Transport',
+        street: 'Rue'
+      },
+      location: 'Emplacement',
+      address: 'Adresse',
+      coordinates: 'Coordonnées',
+      latitude: 'Latitude',
+      longitude: 'Longitude',
+      dimensions: 'Dimensions',
+      width: 'Largeur',
+      height: 'Hauteur',
+      unit: 'Unité',
+      price: 'Prix',
+      amount: 'Montant',
+      currency: 'Devise',
+      period: 'Période',
+      periods: {
+        day: 'Jour',
+        week: 'Semaine',
+        month: 'Mois'
+      },
+      submit: 'Créer l\'Espace Publicitaire',
+      close: 'Fermer',
+      validation: {
+        required: 'Ce champ est requis',
+        invalidEmail: 'Adresse email invalide',
+        minLength: 'Minimum {{count}} caractères requis',
+        maxLength: 'Maximum {{count}} caractères autorisés',
+        invalidPrice: 'Prix invalide',
+        invalidCoordinates: 'Coordonnées invalides'
+      },
+      status: {
+        available: 'Disponible',
+        booked: 'Réservé',
+        maintenance: 'En maintenance'
+      }
+    },
+    errors: {
+      notFound: {
+        title: 'Page non trouvée',
+        message: 'Désolé, la page que vous recherchez n\'existe pas.',
+        backHome: 'Retour à l\'accueil'
+      },
+      passwordMatch: 'Les mots de passe ne correspondent pas',
+      invalidCredentials: 'Email ou mot de passe invalide',
+      requiredField: 'Ce champ est requis'
+    }
   },
   en: {
     common: {
@@ -179,6 +226,19 @@ export const translations = {
       errorFetchingAdSpaces: 'Error fetching ad spaces',
       errorCreatingAdSpace: 'Error creating ad space',
       adSpaceCreated: 'Ad space created successfully',
+      error: 'Error',
+      success: 'Success',
+      delete: 'Delete',
+      edit: 'Edit',
+      status: 'Status',
+      available: 'Available',
+      booked: 'Booked',
+      unavailable: 'Unavailable',
+      role: {
+        client: 'Client',
+        owner: 'Owner',
+        admin: 'Administrator'
+      }
     },
     nav: {
       spaces: 'Spaces',
@@ -276,33 +336,67 @@ export const translations = {
         status: 'Status',
         active: 'Active',
       },
-    },
-    adspace: {
-      form: {
-        title: 'Add New Ad Space',
-        basicInformation: 'Basic Information',
-        title: 'Title',
-        description: 'Description',
-        type: 'Type',
-        location: 'Location',
-        address: 'Address',
-        latitude: 'Latitude',
-        longitude: 'Longitude',
-        price: 'Price',
-        amount: 'Amount',
-        currency: 'Currency',
-        period: 'Period',
-        dimensions: 'Dimensions',
-        width: 'Width',
-        height: 'Height',
-        unit: 'Unit',
-        features: 'Features',
-        availability: 'Availability',
-        startDate: 'Start Date',
-        endDate: 'End Date',
-        submit: 'Create Ad Space',
-        close: 'Close'
+      metrics: {
+        views: 'Views',
+        clicks: 'Clicks',
+        bookings: 'Bookings'
       }
     },
-  },
+    adSpaceForm: {
+      title: 'Add New Ad Space',
+      basicInformation: 'Basic Information',
+      titleField: 'Title',
+      description: 'Description',
+      type: 'Type',
+      types: {
+        billboard: 'Billboard',
+        digital: 'Digital',
+        transit: 'Transit',
+        street: 'Street'
+      },
+      location: 'Location',
+      address: 'Address',
+      coordinates: 'Coordinates',
+      latitude: 'Latitude',
+      longitude: 'Longitude',
+      dimensions: 'Dimensions',
+      width: 'Width',
+      height: 'Height',
+      unit: 'Unit',
+      price: 'Price',
+      amount: 'Amount',
+      currency: 'Currency',
+      period: 'Period',
+      periods: {
+        day: 'Day',
+        week: 'Week',
+        month: 'Month'
+      },
+      submit: 'Create Ad Space',
+      close: 'Close',
+      validation: {
+        required: 'This field is required',
+        invalidEmail: 'Invalid email address',
+        minLength: 'Minimum {{count}} characters required',
+        maxLength: 'Maximum {{count}} characters allowed',
+        invalidPrice: 'Invalid price',
+        invalidCoordinates: 'Invalid coordinates'
+      },
+      status: {
+        available: 'Available',
+        booked: 'Booked',
+        maintenance: 'Under Maintenance'
+      }
+    },
+    errors: {
+      notFound: {
+        title: 'Page Not Found',
+        message: 'Sorry, the page you are looking for does not exist.',
+        backHome: 'Back to Home'
+      },
+      passwordMatch: 'Passwords do not match',
+      invalidCredentials: 'Invalid email or password',
+      requiredField: 'This field is required'
+    }
+  }
 };
