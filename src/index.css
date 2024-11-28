@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-white font-sans text-gray-900 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+
+  input[type='text'],
+  input[type='email'],
+  input[type='url'],
+  input[type='password'],
+  input[type='number'],
+  input[type='date'],
+  input[type='datetime-local'],
+  input[type='month'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='time'],
+  input[type='week'],
+  textarea,
+  select {
+    @apply w-full rounded-lg border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:placeholder:text-gray-500;
+  }
+
+  input[type='checkbox'],
+  input[type='radio'] {
+    @apply h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600 dark:border-gray-700 dark:bg-gray-800 dark:ring-offset-gray-800;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 active:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-all duration-200 ease-out;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center rounded-lg bg-gray-50 px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 ease-out dark:bg-gray-800 dark:text-white dark:ring-gray-700 dark:hover:bg-gray-700;
+  }
+
+  .input-primary {
+    @apply block w-full px-4 py-3 border-gray-200 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-200;
+  }
+
+  .hero-text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .animate-in {
+    animation: enter 0.2s ease-out;
+  }
+
+  .slide-up {
+    animation-name: slideUp;
+  }
+
+  .fade-in {
+    animation-name: fadeIn;
+  }
+
+  .delay-150 {
+    animation-delay: 150ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+}
